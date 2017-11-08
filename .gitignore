@@ -320,3 +320,4 @@ deps/
 /PythonClient/cloud.txt
 /Unreal/Plugins/AirSim/Content/VehicleAdv/Suv
 /suv_download_tmp
+external/rpclib
