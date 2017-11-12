@@ -322,3 +322,5 @@ deps/
 /suv_download_tmp
 external/rpclib
 external/rpclib
+*.uproject
+*.uasset
