@@ -2,7 +2,8 @@
 
 #include "ActorItem.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
-
+//#include
+//#include "../../Plugins/AirSim/Source/AirLib/include/controllers/Settings.h"
 
 // Sets default values
 AActorItem::AActorItem()
@@ -21,6 +22,8 @@ void AActorItem::BeginPlay()
 	Super::BeginPlay();
 	curLoc = GetActorLocation();
 	newVector = GetActorLocation();
+	lowBound = curLoc.X - 300;
+	highBound = curLoc.X + 300;
 }
 
 
@@ -54,10 +57,14 @@ void AActorItem::Tick(float DeltaTime)
 	curLoc = GetActorLocation();
 	FVector low = newVector - FVector(2, 2, 2);
 	FVector hi = newVector + FVector(2, 2, 2);
-	if (currentTime >=  0.1f) {
+	if (currentTime >=  DeltaTime) {
 		if ( (curLoc.X < hi.X) && (curLoc.Y < hi.Y) && (curLoc.Z < hi.Z) &&
 			(curLoc.X > low.X) && (curLoc.Y > low.Y) && (curLoc.Z > low.Z)) {
+			//newVector = curLoc + FVector(FMath::RandRange(Settings::getFloat("lowerRange", -300),Settings::getFloat("highRange", 300)),
+			//							 FMath::RandRange(Settings::getFloat("lowerRange", -300), Settings::getFloat("highRange", 300)),
+			//							 FMath::RandRange(Settings::getFloat("lowerRange", -300), Settings::getFloat("highRange", 300)));
 			newVector = curLoc + FVector(FMath::RandRange(-300, 300), FMath::RandRange(-300, 300), FMath::RandRange(-300, 300));
+
 			move(1);
 			SetActorLocation(curLoc, false);
 		}

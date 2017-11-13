@@ -29,4 +29,6 @@ public:
 	FVector curLoc;
 	FVector newVector;
 	float currentTime;
+	float lowBound;
+	float highBound;
 };

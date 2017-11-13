@@ -22,36 +22,19 @@ ADynamicSpawningObject::ADynamicSpawningObject()
 void ADynamicSpawningObject::BeginPlay()
 {
 	Super::BeginPlay();
-	//UWorld* World = GetWorld();
-	//if (World)
-	//{
-	//	World->SpawnActor<AActorItem>(itemSpawning);
-	//}
 }
-
+int i = 0;
 // Called every frame
 void ADynamicSpawningObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	/*UWorld* World = GetWorld();
-	World->Get*/
-	//currentTime = currentTime + 1 * DeltaTime;
-	//UClass* PickupType = itemSpawning.Get;
-	//
-
-
-	//if (currentTime >=  2.f) {
-	//	
-	//	itemSpawning.Get
-	//	xCoord = generateX(DeltaTime);
-
-	//	//set the x in Location
-	//	curLoc.X = xCoord;
-
-	//	
-
-	//	currentTime = 0.f;
-	//}
+	FVector NewLocation = GetActorLocation() + FVector(FMath::RandRange(-300, 300), FMath::RandRange(-300, 300), FMath::RandRange(-300, 300));
+	UWorld* World = GetWorld();
+	if (i<=30)
+	{
+		World->SpawnActor<AActorItem>(GetClass(), NewLocation, FRotator::ZeroRotator);
+	}
+	i++;
 }
 
 float ADynamicSpawningObject::generateX(float DeltaSeconds) {
