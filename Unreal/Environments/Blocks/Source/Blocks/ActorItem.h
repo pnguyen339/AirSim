@@ -18,17 +18,29 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	void move(float time);
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* Mesh;
+	void move(float x, float y, float z);
 	FVector curLoc;
+	FVector origLoc;
 	FVector newVector;
 	float currentTime;
 	float lowBound;
 	float highBound;
+	int movementType;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	void moveRand();
+	void moveSin(float deltaTime);
+
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* Mesh;
+	
+	UPROPERTY(EditAnywhere)
+	class USkeletalMeshComponent* PlayerMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Assets")
+	USkeletalMesh* AlternateMeshAsset;
+	
 };
