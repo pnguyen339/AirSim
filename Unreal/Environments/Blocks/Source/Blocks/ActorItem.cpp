@@ -25,7 +25,7 @@ AActorItem::AActorItem()
 		}
 	}
 	currentTime = 0;
-	movementType = 1;
+	movementType = 0;
 }
 
 // Called when the game starts or when spawned
