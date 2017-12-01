@@ -2,14 +2,18 @@
 
 #include "RandomMovementChar.h"
 
-
-
+#include "Runtime/Json/Public/Dom/JsonObject.h"
+#include "Runtime/Core/Public/Misc/Paths.h"
+#include "FileHelper.h"
 // Sets default values
 ARandomMovementChar::ARandomMovementChar()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	counter = 0;
+	path = FPaths::GameSourceDir() + "/Game/Data/myData.json";
+	FFileHelper::LoadFileToString(JsonString, *path);
+
 }
 
 // Called when the game starts or when spawned
