@@ -28,6 +28,8 @@ public:
 
 	FString JsonString;
 	FString path;
+	
+	
 	int counter = 0;
 	int choice;
 	int speedScale;

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RandomMovementChar.h"
-
+#include "Runtime/Json/Public/Serialization/JsonSerializer.h"
 #include "Runtime/Json/Public/Dom/JsonObject.h"
 #include "Runtime/Core/Public/Misc/Paths.h"
 #include "FileHelper.h"
@@ -11,7 +11,9 @@ ARandomMovementChar::ARandomMovementChar()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	counter = 0;
-	path = FPaths::GameSourceDir() + "/Game/Data/myData.json";
+	path = FPaths::GameSourceDir() + "Blocks/setting/DataGenerationSetting.json";
+	FFileHelper::LoadFileToString(JsonString, *path);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *path);
 	FFileHelper::LoadFileToString(JsonString, *path);
 
 }
@@ -26,8 +28,22 @@ void ARandomMovementChar::BeginPlay()
 // Called every frame
 void ARandomMovementChar::Tick(float DeltaTime)
 {
+	float speed =1;
+	TSharedPtr<FJsonObject> JsonParsed;
+	TSharedRef< TJsonReader<TCHAR> > JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonString);
+	if (FJsonSerializer::Deserialize(JsonReader, JsonParsed))
+	{
+		speed = JsonParsed->GetNumberField("RandMovSpeed");
+	}
 
-	float speed = .5;
+	/*FString JsonRaw = "{ \"exampleString\": \".1\" }";
+	TSharedPtr<FJsonObject> JsonParsed;
+	TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonRaw);
+	if (FJsonSerializer::Deserialize(JsonReader, JsonParsed))
+	{
+		speed = JsonParsed->GetNumberField("exampleString");
+	}*/
+	
 	Super::Tick(DeltaTime);
 	counter += 1 * DeltaTime;
 	if (counter == 100) {
