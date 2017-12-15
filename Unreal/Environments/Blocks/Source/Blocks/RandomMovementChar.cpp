@@ -4,6 +4,8 @@
 #include "Runtime/Json/Public/Serialization/JsonSerializer.h"
 #include "Runtime/Json/Public/Dom/JsonObject.h"
 #include "Runtime/Core/Public/Misc/Paths.h"
+#include "Runtime/Engine/Classes/GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "FileHelper.h"
 // Sets default values
 ARandomMovementChar::ARandomMovementChar()
@@ -43,7 +45,8 @@ void ARandomMovementChar::Tick(float DeltaTime)
 	{
 		speed = JsonParsed->GetNumberField("exampleString");
 	}*/
-	
+	GetCharacterMovement()->MaxWalkSpeed = speed;
+
 	Super::Tick(DeltaTime);
 	counter += 1 * DeltaTime;
 	if (counter == 100) {
@@ -54,10 +57,10 @@ void ARandomMovementChar::Tick(float DeltaTime)
 		counter++;
 	switch (choice)
 	{
-		case 0: AddMovementInput(GetActorForwardVector(), speed * 1); break;
-		case 1: AddMovementInput(GetActorForwardVector(), speed *-1); break;
-		case 2: AddMovementInput(GetActorRightVector(), speed *1); break;
-		case 3: AddMovementInput(GetActorRightVector(), speed *-1); break;
+		case 0: AddMovementInput(GetActorForwardVector(), 1); break;
+		case 1: AddMovementInput(GetActorForwardVector(), -1); break;
+		case 2: AddMovementInput(GetActorRightVector(), 1); break;
+		case 3: AddMovementInput(GetActorRightVector(), -1); break;
 
 		default:
 			break;
